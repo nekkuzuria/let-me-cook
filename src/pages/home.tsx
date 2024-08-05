@@ -102,6 +102,22 @@ export default function IndexPage() {
           )
         )}
       </div>
+      <a
+        href="https://github.com/nekkuzuria/let-me-cook"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center mt-24 text-white bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-800 hover:border-gray-700 px-4 py-2 transition-colors duration-300 "
+      >
+        <svg
+          className="w-5 h-5 mr-2"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M12 2C6.48 2 2 6.48 2 12c0 4.418 2.867 8.164 6.84 9.486.5.092.68-.216.68-.48v-1.76c-2.835.615-3.433-1.318-3.433-1.318-.464-1.175-1.134-1.486-1.134-1.486-.927-.637.071-.625.071-.625 1.024.072 1.563 1.048 1.563 1.048.905 1.586 2.373 1.133 2.95.87.092-.656.353-1.133.64-1.394-2.245-.253-4.605-1.123-4.605-4.989 0-1.102.393-2.002 1.042-2.71-.104-.253-.452-1.272.096-2.647 0 0 .845-.272 2.766 1.04A9.606 9.606 0 0 1 12 7.557a9.606 9.606 0 0 1 2.698.373c1.92-1.312 2.765-1.04 2.765-1.04.549 1.375.201 2.394.097 2.647.65.708 1.043 1.608 1.043 2.71 0 3.872-2.367 4.735-4.617 4.983.36.31.683.921.683 1.855v2.743c0 .266.182.575.686.48C19.133 20.163 22 16.418 22 12c0-5.52-4.48-10-10-10z"></path>
+        </svg>
+        GitHub
+      </a>
     </div>
   );
 }
