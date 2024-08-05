@@ -1,6 +1,6 @@
-"use client"; // This is a client component 👈🏽
+"use client";
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Image from "next/image";
 
 // Define the structure of the recipe data
@@ -12,26 +12,40 @@ type Recipe = {
 };
 
 export default function IndexPage() {
-  // State to hold the user's input for ingredients
   const [ingredients, setIngredients] = useState("");
-  // State to hold the fetched recipe data
   const [recipe, setRecipe] = useState<Recipe | null>(null);
-  // State to manage the loading state during API requests
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Function to search for recipes based on ingredients
   const searchRecipe = async () => {
-    setLoading(true); // Set loading to true before the request
+    setLoading(true);
+    setError(null);
     try {
       const response = await axios.get("/api/search", {
         params: { ingredients },
       });
-      // Set the recipe state with the fetched data
-      setRecipe(response.data);
+      if (response.status === 200) {
+        setRecipe(response.data);
+      }
     } catch (error) {
       console.error("Error fetching the recipe <Client>", error);
+
+      if (axios.isAxiosError(error)) {
+        const errorResponse = error.response;
+        if (errorResponse) {
+          // Request made and server responded with a status other than 2xx
+          if (errorResponse.status === 404) {
+            setError("Waduh, resepnya ga ada chef!");
+          } else if (errorResponse.status === 500) {
+            setError("Sistemnya error chef, coba lagi nanti!");
+          } else {
+            setError("Terjadi kesalahan, coba lagi nanti!");
+          }
+        }
+      }
     } finally {
-      setLoading(false); // Reset loading state after the request
+      setLoading(false);
     }
   };
 
@@ -65,6 +79,8 @@ export default function IndexPage() {
         </button>
         {loading ? (
           <div className="mt-8 text-center text-gray-500">Loading...</div>
+        ) : error ? (
+          <div className="mt-8 text-center text-red-500">{error}</div>
         ) : (
           recipe && (
             <div className="mt-8 bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
