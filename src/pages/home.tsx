@@ -34,7 +34,6 @@ export default function IndexPage() {
       if (axios.isAxiosError(error)) {
         const errorResponse = error.response;
         if (errorResponse) {
-          // Request made and server responded with a status other than 2xx
           if (errorResponse.status === 404) {
             setError("Waduh, resepnya ga ada chef!");
           } else if (errorResponse.status === 500) {
