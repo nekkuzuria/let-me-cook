@@ -16,7 +16,7 @@ To run this project locally, follow these steps:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/let-me-cook.git
+   git clone https://github.com/nekkuzuria/let-me-cook.git
    ```
 2. **Navigate to the Project Directory**
    ```bash
