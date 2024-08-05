@@ -1,6 +1,6 @@
 # Let Me Cook
 
-Let Me Cook is a web application that helps you find recipes based on the ingredients you have. It uses the AbstractAPI to scrape recipe data from Cookpad. The app allows users to search for recipes, view details, and regenerate results.
+Let Me Cook is a web application that helps you find recipes based on the ingredients you have. It uses the AbstractAPI and Cheerio to scrape recipe data from Cookpad. The app allows users to search for recipes, view details, and regenerate results.
 
 ![image](https://github.com/user-attachments/assets/70a0934c-4e4e-4293-9f93-a0cecca4911e)
 
@@ -52,5 +52,7 @@ To run this project locally, follow these steps:
 
 ## Acknowledgements
 - AbstractAPI for providing the API used to fetch recipe data.
+- Cheerio for web scraping
 - Next.js for the React framework used in this project.
 - Tailwind CSS for the utility-first CSS framework.
+  
