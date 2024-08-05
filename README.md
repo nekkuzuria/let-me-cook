@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Let Me Cook
 
-## Getting Started
+Let Me Cook is a web application that helps you find recipes based on the ingredients you have. It uses the AbstractAPI to scrape recipe data from Cookpad. The app allows users to search for recipes, view details, and regenerate results.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Search for Recipes**: Enter ingredients you have to search for recipes.
+- **View Recipe Details**: See the title, image, and summary of a randomly selected recipe.
+- **Regenerate Recipe**: Get a new recipe with the same ingredients.
+- **Check on Cookpad**: View the full recipe on Cookpad with a direct link.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run this project locally, follow these steps:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Clone the Repository**
 
-## Learn More
+   ```bash
+   git clone https://github.com/yourusername/let-me-cook.git
+   ```
+2. **Navigate to the Project Directory**
+   ```bash
+   cd let-me-cook
+   ```   
+3. **Install Dependencies**
+   Make sure you have Node.js installed. Then run:
+   ```bash
+   npm install
+   ```  
+4. **Configure Environment Variables**
+   - You need to generate an API key from [AbstractAPI](https://www.abstractapi.com/)
+   - In the root directory of your project, create a file named .env.local.
+   - Open the .env.local file and add the following line, replacing your_abstractapi_key_here with the API key you obtained:
+   ```bash
+   NEXT_PUBLIC_API_KEY=your_abstractapi_key_here
+   ```  
+5. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```  
+   Open http://localhost:3000 in your browser to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
+- **Enter Ingredients:** Type the ingredients you have into the search box.
+- **Search for Recipes:** Click the "Cari Resepnya!" button to find recipes.
+- **View Recipe Details:** See the recipe details displayed on the page.
+- **Regenerate Recipe:** Click the "Regenerate" button to get a new recipe with the same ingredients.
+- **Check on Cookpad:** Click the "Cek di Cookpad" link to view the full recipe on Cookpad.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgements
+- AbstractAPI for providing the API used to fetch recipe data.
+- Next.js for the React framework used in this project.
+- Tailwind CSS for the utility-first CSS framework.
