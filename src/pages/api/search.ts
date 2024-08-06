@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import got from "got";
+import axios from "axios";
 import * as cheerio from "cheerio";
 
 // Define the structure of the data to be returned by the API
@@ -24,21 +24,19 @@ export default async function handler(
   }
 
   try {
-    // Define the maximum number of pages to search
+    // Random page
     const maxPages = 10;
-    // Select a random page number
     const randomPage = Math.floor(Math.random() * maxPages) + 1;
 
-    // Retrieve API key from environment variables
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
     // Construct the URL for the scraping API request
-    const url = `https://cookpad.com/id/cari/${encodeURIComponent(
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const url = `https://scrape.abstractapi.com/v1/?api_key=${apiKey}&url=https://cookpad.com/id/cari/${encodeURIComponent(
       ingredients
     )}?event=search.typed_query&page=${randomPage}`;
 
     // Perform the HTTP GET request to the scraping API
-    const response = await got.get(url);
-    const $ = cheerio.load(response.body);
+    const response = await axios.get(url);
+    const $ = cheerio.load(response.data);
 
     // Extract the list of recipes from the page
     const recipes = $('li[data-search-tracking-target="result"]').toArray();
@@ -65,8 +63,10 @@ export default async function handler(
       const fullUrl = `https://cookpad.com${url}`;
 
       // Extract the recipe image
-      const detailResponse = await got.get(fullUrl);
-      const $$ = cheerio.load(detailResponse.body);
+      const recipePage = await axios.get(
+        `https://scrape.abstractapi.com/v1/?api_key=${apiKey}&url=${fullUrl}`
+      );
+      const $$ = cheerio.load(recipePage.data);
       const image = $$('img[alt^="Foto resep"]').attr("src");
 
       // Return the extracted recipe data as JSON response

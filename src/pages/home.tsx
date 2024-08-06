@@ -36,10 +36,10 @@ export default function IndexPage() {
         if (errorResponse) {
           if (errorResponse.status === 404) {
             setError("Waduh, resepnya ga ada chef!");
-          } else if (errorResponse.status === 500) {
-            setError("Sistemnya error chef, coba lagi nanti!");
+          } else if (errorResponse.status === 400) {
+            setError("Ke indomaret dulu chef!");
           } else {
-            setError("Terjadi kesalahan, coba lagi nanti!");
+            setError("Sistemnya error chef, coba lagi nanti!");
           }
         }
       }
