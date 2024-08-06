@@ -59,14 +59,14 @@ export default function IndexPage() {
         Let Me Cook
       </h1>
       <h2 className="text-xl font-semibold mb-8 text-gray-600">
-        Bro mau masak apa hari ini? 😎🍳
+        Chef mau masak apa hari ini? 😎🍳
       </h2>
       <div className="w-full max-w-md">
         <input
           type="text"
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          placeholder="Bahan apa aja yang lo punya?"
+          placeholder="Bahan apa aja yang chef punya?"
           className="w-full p-2 border border-gray-300 rounded mb-4 text-gray-800"
         />
         <button
