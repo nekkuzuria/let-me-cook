@@ -28,12 +28,15 @@ To run this project locally, follow these steps:
    npm install
    ```  
 4. **Configure Environment Variables**
-   - You need to generate an API key from [AbstractAPI](https://www.abstractapi.com/)
-   - In the root directory of your project, create a file named .env.local
-   - Open the .env.local file and add the following line, replacing your_abstractapi_key_here with the API key you obtained:
-   ```bash
-   NEXT_PUBLIC_API_KEY=your_abstractapi_key_here
-   ```  
+  - Copy the .env.example file to .env.local:
+    ```bash
+    cp .env.example .env.local
+    ``` 
+  - Open the .env.local file and add your AbstractAPI key:
+    ```bash
+    NEXT_PUBLIC_API_KEY=your_abstractapi_key_here
+    ``` 
+    You need to generate an API key from [AbstractAPI](https://www.abstractapi.com/).
 5. **Run the Development Server**
    ```bash
    npm run dev
