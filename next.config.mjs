@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["img-global.cpcdn.com"], // Tambahkan domain gambar di sini
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img-global.cpcdn.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

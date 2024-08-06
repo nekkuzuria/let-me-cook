@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
+import got from "got";
 import * as cheerio from "cheerio";
 
 // Define the structure of the data to be returned by the API
@@ -32,14 +32,13 @@ export default async function handler(
     // Retrieve API key from environment variables
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
     // Construct the URL for the scraping API request
-    const url = `https://scrape.abstractapi.com/v1/?api_key=${apiKey}&url=https://cookpad.com/id/cari/${encodeURIComponent(
+    const url = `https://cookpad.com/id/cari/${encodeURIComponent(
       ingredients
     )}?event=search.typed_query&page=${randomPage}`;
 
     // Perform the HTTP GET request to the scraping API
-    const response = await axios.get(url);
-    // Load the HTML data using cheerio
-    const $ = cheerio.load(response.data);
+    const response = await got.get(url);
+    const $ = cheerio.load(response.body);
 
     // Extract the list of recipes from the page
     const recipes = $('li[data-search-tracking-target="result"]').toArray();
@@ -55,22 +54,6 @@ export default async function handler(
       const title = $(randomRecipe).find("h2 a").text().trim();
       console.log(`Recipe title: ${title}`);
 
-      // Extract the image URL from the 'srcset' attribute
-      const imageSrcSet = $(randomRecipe)
-        .find(
-          'div.flex-none.w-20.xs\\:w-auto.h-auto picture source[type="image/jpeg"]'
-        )
-        .attr("srcset");
-
-      let image;
-      // If 'srcset' attribute is present, extract the best quality image URL
-      if (imageSrcSet) {
-        const imageUrls = imageSrcSet.split(", ");
-        const bestQualityImageUrl =
-          imageUrls[imageUrls.length - 1].split(" ")[0];
-        image = bestQualityImageUrl;
-      }
-
       // Extract the recipe summary
       const summary = $(randomRecipe)
         .find('[data-ingredients-highlighter-target="ingredients"]')
@@ -79,7 +62,12 @@ export default async function handler(
 
       // Extract the recipe URL
       const url = $(randomRecipe).find("a.block-link__main").attr("href");
-      const fullUrl = url ? `https://cookpad.com${url}` : undefined;
+      const fullUrl = `https://cookpad.com${url}`;
+
+      // Extract the recipe image
+      const detailResponse = await got.get(fullUrl);
+      const $$ = cheerio.load(detailResponse.body);
+      const image = $$('img[alt^="Foto resep"]').attr("src");
 
       // Return the extracted recipe data as JSON response
       res.status(200).json({
@@ -89,11 +77,9 @@ export default async function handler(
         url: fullUrl,
       });
     } else {
-      console.log("No recipes found");
       res.status(404).json({ error: "No recipe found" });
     }
   } catch (error) {
-    console.error("Error during scraping:", error);
     res.status(500).json({ error: "Failed to fetch recipes <Server>" });
   }
 }
