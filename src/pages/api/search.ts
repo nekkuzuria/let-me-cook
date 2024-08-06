@@ -62,12 +62,21 @@ export default async function handler(
       const url = $(randomRecipe).find("a.block-link__main").attr("href");
       const fullUrl = `https://cookpad.com${url}`;
 
-      // Extract the recipe image
-      const recipePage = await axios.get(
-        `https://scrape.abstractapi.com/v1/?api_key=${apiKey}&url=${fullUrl}`
-      );
-      const $$ = cheerio.load(recipePage.data);
-      const image = $$('img[alt^="Foto resep"]').attr("src");
+      // Extract the image URL from the 'srcset' attribute
+      const imageSrcSet = $(randomRecipe)
+        .find(
+          'div.flex-none.w-20.xs\\:w-auto.h-auto picture source[type="image/jpeg"]'
+        )
+        .attr("srcset");
+
+      let image;
+      // If 'srcset' attribute is present, extract the best quality image URL
+      if (imageSrcSet) {
+        const imageUrls = imageSrcSet.split(", ");
+        const bestQualityImageUrl =
+          imageUrls[imageUrls.length - 1].split(" ")[0];
+        image = bestQualityImageUrl;
+      }
 
       // Return the extracted recipe data as JSON response
       res.status(200).json({
